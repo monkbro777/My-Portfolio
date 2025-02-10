@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MK Dev Blog | Professional Web Insights</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2B8A8A;
+            --secondary: #4A6FA5;
+            --dark: #1D2D44;
+            --light: #F4F4F9;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid white;
+        }
+
+        .logo-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-left: auto;
+        }
+
+        .nav-links li {
+            margin: 0 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Modern Minimalist Design */
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background: #fafafa;
+            padding-top: 100px; /* Add space for fixed navbar */
+        }
+
+        /* Professional Header */
+        .blog-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 8rem 2rem 4rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .blog-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.05em;
+        }
+
+        /* Featured Article */
+        .featured-article {
+            max-width: 1200px;
+            margin: -4rem auto 4rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .featured-image {
+            height: 500px;
+            background-image: linear-gradient(0deg, rgba(0,0,0,0.6), transparent 50%),
+                        url('https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .featured-content {
+            padding: 3rem;
+            position: relative;
+        }
+
+        .featured-tag {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Article Grid */
+        .articles-grid {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .article-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .article-content {
+            padding: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .article-category {
+            background: var(--light);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+        }
+
+        .article-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .article-excerpt {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Modern Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 4rem 0;
+        }
+
+        .page-item {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid #eee;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .page-item.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .newsletter-input {
+            padding: 1rem;
+            border-radius: 8px;
+            border: none;
+            width: 300px;
+        }
+
+        @media (max-width: 768px) {
+            .blog-title {
+                font-size: 2.5rem;
+            }
+            
+            .featured-article {
+                margin: 2rem 1rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Professional Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="image/profile/mukes.jpg" alt="Mukesh Kumar" class="logo-image">
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Professional Header -->
+    <header class="blog-header">
+        <div class="header-content">
+            <h1 class="blog-title">Web Development Insights</h1>
+            <p class="blog-subtitle">Professional Guides & Technical Expertise</p>
+        </div>
+    </header>
+
+    <!-- Featured Article -->
+    <article class="featured-article">
+        <div class="featured-image"></div>
+        <div class="featured-content">
+            <span class="featured-tag">Featured Article</span>
+            <h2>Advanced WordPress Optimization Techniques</h2>
+            <div class="article-meta">
+                <span>By Mukesh Kumar</span>
+                <span>March 25, 2024</span>
+            </div>
+            <p class="article-excerpt">Professional strategies for optimizing WordPress performance, security, and conversion rates...</p>
+            <a href="#" class="read-more">Read Full Analysis →</a>
+        </div>
+    </article>
+
+    <!-- Article Grid -->
+    <div class="articles-grid">
+        <!-- Article 1 -->
+        <article class="article-card">
+            <div class="article-image" style="background-image: url('images/blog/woocommerce-optimization.jpg')"></div>
+            <div class="article-content">
+                <div class="article-meta">
+                    <span class="article-category">WordPress</span>
+                    <span>8 min read</span>
+                </div>
+                <h3 class="article-title">Professional Guide to WordPress Security</h3>
+                <p class="article-excerpt">Essential security measures for enterprise-level WordPress websites...</p>
+                <a href="#" class="read-more">Read More →</a>
+            </div>
+        </article>
+
+        <!-- Article 2 -->
+        <article class="article-card">
+            <div class="article-image" style="background-image: url('https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg')"></div>
+            <div class="article-content">
+                <div class="article-meta">
+                    <span class="article-category">E-commerce</span>
+                    <span>10 min read</span>
+                </div>
+                <h3 class="article-title">WooCommerce Conversion Optimization</h3>
+                <p class="article-excerpt">Professional techniques to boost e-commerce sales and user experience...</p>
+                <a href="#" class="read-more">Read More →</a>
+            </div>
+        </article>
+
+        <!-- Add more articles -->
+    </div>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="newsletter-content">
+            <h2>Subscribe to Professional Insights</h2>
+            <p>Get weekly articles about web development and digital marketing strategies</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Enter your professional email">
+                <button type="submit" class="btn-primary">Subscribe Now</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Modern Pagination -->
+    <div class="pagination">
+        <span class="page-item active">1</span>
+        <span class="page-item">2</span>
+        <span class="page-item">3</span>
+        <span class="page-item">Next →</span>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu on click outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html> 
